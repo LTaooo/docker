@@ -11,8 +11,7 @@ RUN apk update \
     && apk add --no-cache $PHPIZE_DEPS \
     && apk add --no-cache libstdc++ libzip-dev \
     && pecl install redis \
-    && pecl install zip \
-    && docker-php-ext-enable redis zip \
+    && docker-php-ext-enable redis \
     && apk del $PHPIZE_DEPS
 # docker-php-ext-install 指令已经包含编译辅助类库的删除逻辑
 RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev \
@@ -31,7 +30,7 @@ RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev lib
 # 设置时区
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# 设置fpm配置
+# 设置fpm配置, 当存在多个fpm配置时，www.conf是最后一个被加载的配置文件
 copy ./fpm.conf /usr/local/etc/php-fpm.d/www.conf
 
 # 默认值：/usr/local/etc/php
