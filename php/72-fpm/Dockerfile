@@ -14,7 +14,7 @@ RUN apk update \
     && pecl install redis \
     && pecl install zip \
     && docker-php-ext-enable redis zip \
-    && apk del $PHPIZE_DEPS \
+    && apk del $PHPIZE_DEPS
 # docker-php-ext-install 指令已经包含编译辅助类库的删除逻辑
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
