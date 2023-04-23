@@ -10,13 +10,13 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g" /etc/apk/repositories
 RUN apk update \
     && apk add --no-cache $PHPIZE_DEPS \
     && apk add --no-cache libstdc++ libzip-dev \
-    && apk add --no-cache freetype libpng libjpeg-turbo \
     && pecl install redis \
     && pecl install zip \
     && docker-php-ext-enable redis zip
     #&& apk del $PHPIZE_DEPS
 # docker-php-ext-install 指令已经包含编译辅助类库的删除逻辑
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
+RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install -j$(nproc) pdo_mysql \
     && docker-php-ext-install -j$(nproc) opcache \
