@@ -3,7 +3,8 @@ FROM php:7.2.34-fpm-alpine3.12
 ENV TZ=Asia/Shanghai \
     COMPOSER_VERSION=${COMPOSER_VERSION:-"2.3.10"}
 
-COPY ../libs/composer/${COMPOSER_VERSION}.phar /usr/local/bin/composer
+# copy只能获取当前上下文的文件
+add ../libs/composer/${COMPOSER_VERSION}.phar /usr/local/bin/composer
 # 设置fpm配置, 当存在多个fpm配置时，www.conf是最后一个被加载的配置文件
 copy ./fpm.conf /usr/local/etc/php-fpm.d/www.conf
 
