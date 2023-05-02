@@ -32,6 +32,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # 设置fpm配置, 当存在多个fpm配置时，www.conf是最后一个被加载的配置文件
 copy ./fpm.conf /usr/local/etc/php-fpm.d/www.conf
+copy ./custom.ini /usr/local/etc/php/conf.d/custom.ini
 
 # 默认值：/usr/local/etc/php
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
