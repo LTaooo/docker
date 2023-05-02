@@ -6,10 +6,12 @@ ENV TZ=Asia/Shanghai \
 # 配置阿里云镜像源，加快构建速度
 RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g" /etc/apk/repositories
 
-# PHPIZE_DEPS 包含 gcc g++ 等编译辅助类库，完成编译后删除，PHPIZE_DEPS是php官方镜像中提供的变量
+# PHPIZE_DEPS 包含 gcc g++ 等编译辅助类库，完成编译后删除，PHPIZE_DEPS是php官方镜像中提供的变量,tzdata是时区数据包
 RUN apk update \
-    && apk add --no-cache $PHPIZE_DEPS \
-    && apk add --no-cache libstdc++ libzip-dev \
+    && wget -nv -O /usr/local/bin/composer https://github.com/composer/composer/releases/download/${COMPOSER_VERSION}/composer.phar \
+    && chmod u+x /usr/local/bin/composer \
+    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
+    && apk add --no-cache libstdc++ libzip-dev tzdata $PHPIZE_DEPS \
     && pecl install redis \
     && docker-php-ext-enable redis \
     && apk del $PHPIZE_DEPS
@@ -21,14 +23,8 @@ RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev lib
     && docker-php-ext-install -j$(nproc) opcache \
     && docker-php-ext-install -j$(nproc) bcmath \
     && docker-php-ext-install -j$(nproc) mysqli \
-    && wget -nv -O /usr/local/bin/composer https://github.com/composer/composer/releases/download/${COMPOSER_VERSION}/composer.phar \
-    && chmod u+x /usr/local/bin/composer \
-    && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
     && apk del --purge *-dev \
     && rm -rf /var/cache/apk/*
-
-# 设置时区
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # 设置fpm配置, 当存在多个fpm配置时，www.conf是最后一个被加载的配置文件
 copy ./fpm.conf /usr/local/etc/php-fpm.d/www.conf
