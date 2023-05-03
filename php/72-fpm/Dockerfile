@@ -16,7 +16,7 @@ RUN apk update \
     && docker-php-ext-enable redis \
     && apk del $PHPIZE_DEPS
 # 这里的扩展可以直接使用docker-php-ext-install安装
-RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev zlib1g-dev libzip-dev \
+RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev zlib-dev libzip-dev \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install -j$(nproc) pdo_mysql \
