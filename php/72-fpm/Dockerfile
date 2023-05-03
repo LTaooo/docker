@@ -13,7 +13,8 @@ RUN apk update \
     && composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ \
     && apk add --no-cache libstdc++ libzip-dev tzdata $PHPIZE_DEPS \
     && pecl install redis \
-    && docker-php-ext-enable redis \
+      && pecl install zip \
+    && docker-php-ext-enable redis zip  \
     && apk del $PHPIZE_DEPS
 # 这里的扩展可以直接使用docker-php-ext-install安装
 RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev \
