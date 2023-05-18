@@ -1,0 +1,15 @@
+{
+  "name": "composer\/repository",
+  "description": "",
+  "homepage": "http:\/\/127.0.0.1:9000\/",
+  "output-dir": "public",
+  "output-html": true,
+  "require-all": false,
+  "require-dependencies": false,
+  "require-dev-dependencies": false,
+  "require-dependency-filter": true,
+  "repositories": [],
+  "minimum-stability": "dev",
+  "providers": false,
+  "pretty-print": true
+}
