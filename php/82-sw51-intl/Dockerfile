@@ -1,9 +1,9 @@
 
-FROM hyperf/hyperf:8.3-alpine-v3.19-base
+FROM hyperf/hyperf:8.2-alpine-v3.19-base
 
 ARG SW_VERSION
 ARG COMPOSER_VERSION
-ARG PHP_BUILD_VERSION=83
+ARG PHP_BUILD_VERSION=82
 
 ##
 # ---------- env settings ----------
@@ -22,7 +22,7 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g" /etc/apk/repositories
 RUN set -ex \
     && apk update \
     # for swoole extension libaio linux-headers
-    && apk add --no-cache libstdc++ openssl git bash c-ares-dev libpq-dev php83-pdo_sqlite php83-pdo_odbc php83-intl \
+    && apk add --no-cache libstdc++ openssl git bash c-ares-dev libpq-dev php82-pdo_sqlite php82-pdo_odbc php82-intl \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS unixodbc-dev sqlite-dev \
     # download
     && cd /tmp \
