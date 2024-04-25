@@ -17,7 +17,7 @@ RUN apk update \
     && apk del $PHPIZE_DEPS
 # 这里的扩展可以直接使用docker-php-ext-install安装
 RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev libzip libzip-dev \
-    && docker-php-ext-configure gd --with-freetype=/usr/include \
+    && docker-php-ext-configure gd --with-freetype=/usr/include --with-jpeg=/usr/include/jpeg \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install -j$(nproc) pdo_mysql \
     && docker-php-ext-install -j$(nproc) opcache \
