@@ -1,0 +1,17 @@
+
+services:
+  redis:
+    image: redis:7.2
+    container_name: redis72
+    networks:
+      - base
+    ports:
+      - "6379:6379"
+    volumes:
+      - /server/redis/conf:/usr/local/etc/redis
+      - /server/redis/data:/data
+    restart: unless-stopped
+    command: redis-server /usr/local/etc/redis/redis.conf
+networks:
+  base:
+    external: true

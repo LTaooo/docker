@@ -1,0 +1,26 @@
+
+version: '3'
+
+services:
+  nacos:
+    image: nacos/nacos-server:v2.5.1-slim
+    container_name: nacos
+    environment:
+      - MODE=standalone
+      - NACOS_AUTH_ENABLE=false
+      - NACOS_APPLICATION_PORT=8848
+      - JVM_XMS=256m
+      - JVM_XMX=512m
+      - JVM_XMN=128m
+    ports:
+      - "8848:8848"
+    volumes:
+      - ./nacos/logs:/home/nacos/logs
+    restart: unless-stopped
+    networks:
+      - base
+
+networks:
+  base:
+    external: true
+

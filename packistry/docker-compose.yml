@@ -1,0 +1,14 @@
+
+services:
+  packistry:
+    image: ghcr.io/packistry/packistry:0.8.2
+    restart: unless-stopped
+    environment:
+      - APP_KEY=${APP_KEY}
+    ports:
+      - 80:80
+    volumes:
+      - packistry-storage:/data
+
+volumes:
+  packistry-storage:

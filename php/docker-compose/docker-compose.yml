@@ -1,0 +1,23 @@
+
+version: '3.8'
+
+services:
+  php81:
+    image: hyperf/hyperf:8.2-alpine-v3.18-swoole
+    container_name: php82
+    networks:
+      - base
+    volumes:
+      - /www/php:/www
+    working_dir: /www
+    ports:
+      - "9582:9582"
+    restart: unless-stopped
+    tty: true   #这将为容器分配一个伪TTY，类似于docker run -t选项
+    stdin_open: true #这将保持标准输入打开，类似于docker run -i选项。
+    command: bash #这将启动一个交互式shell，保持容器运行。
+
+networks:
+  base:
+    external: true
+
