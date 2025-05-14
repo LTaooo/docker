@@ -1,4 +1,3 @@
-
 version: '3'
 
 services:
@@ -7,13 +6,17 @@ services:
     container_name: nacos
     environment:
       - MODE=standalone
-      - NACOS_AUTH_ENABLE=false
+      - NACOS_AUTH_ENABLE=true
       - NACOS_APPLICATION_PORT=8848
+      - NACOS_AUTH_TOKEN=Z0I3cEsyWnEwWXc5WHZQbUxyVGRBYUZjRXNOaFZqSzE=
+      - NACOS_AUTH_IDENTITY_KEY=nacos-auth
+      - NACOS_AUTH_IDENTITY_VALUE=nacos-auth-value
       - JVM_XMS=256m
       - JVM_XMX=512m
       - JVM_XMN=128m
     ports:
       - "8848:8848"
+      - "9848:9848"
     volumes:
       - ./nacos/logs:/home/nacos/logs
     restart: unless-stopped
@@ -23,4 +26,3 @@ services:
 networks:
   base:
     external: true
-
