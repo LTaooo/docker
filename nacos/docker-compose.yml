@@ -8,7 +8,7 @@ services:
       - MODE=standalone
       - NACOS_AUTH_ENABLE=true
       - NACOS_APPLICATION_PORT=8848
-      - NACOS_AUTH_TOKEN=Z0I3cEsyWnEwWXc5WHZQbUxyVGRBYUZjRXNOaFZqSzE=
+      - NACOS_AUTH_TOKEN=xxx # 先生成32位随机字符串，然后使用base64编码
       - NACOS_AUTH_IDENTITY_KEY=nacos-auth
       - NACOS_AUTH_IDENTITY_VALUE=nacos-auth-value
       - JVM_XMS=256m
